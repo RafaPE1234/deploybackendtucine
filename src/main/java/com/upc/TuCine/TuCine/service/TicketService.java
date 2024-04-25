@@ -9,7 +9,7 @@ public interface TicketService {
 
     List<TicketDto> getAllTickets();
     List<TicketDto> getAllTicketsByUserId(Integer UserId);
-
+    TicketDto getTicketById(Integer id);
     TicketDto createTicket(TicketSaveDto ticketSaveDto);
 
     TicketDto updateTicket(Integer id, TicketSaveDto ticketSaveDto);
