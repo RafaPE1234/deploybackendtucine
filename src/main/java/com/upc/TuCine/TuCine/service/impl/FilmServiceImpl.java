@@ -152,6 +152,22 @@ public class FilmServiceImpl implements FilmService {
 
     }
 
+    @Override
+    public List<FilmDto> searchFilms(String title) {
+        // Convert search term to lowercase for case-insensitive search
+        String searchTerm = title.toLowerCase();
+
+        // Retrieve movies from the data source (e.g., database)
+        List<Film> films = filmRepository.findFilmsByTitleContainingIgnoreCase(searchTerm);
+
+        // Use ModelMapper to convert Film objects to FilmDto objects
+        List<FilmDto> filmDtos = films.stream()
+                .map(film -> modelMapper.map(film, FilmDto.class))
+                .collect(Collectors.toList());
+
+        return filmDtos;
+    }
+
 
     void validateFilm(FilmDto film) {
 

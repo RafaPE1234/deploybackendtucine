@@ -35,6 +35,35 @@ public class FilmController {
         this.filmService = filmService;
     }
 
+    //URL: http://localhost:8080/api/TuCine/v1/films/search
+    //Method: GET
+    @Transactional(readOnly = true)
+    @GetMapping("/films/search")
+    @Operation(summary = "Buscar películas por título o parte del título")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se encontraron películas coincidentes",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = FilmDto.class, type = "array")
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "No se encontraron películas coincidentes",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<List<FilmDto>> searchFilms(@RequestParam(value = "title", required = true) String title) {
+        List<FilmDto> searchResults = filmService.searchFilms(title);
+        if (searchResults.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Indicate no movies found
+        }
+        return new ResponseEntity<>(searchResults, HttpStatus.OK);
+    }
 
     //URL: http://localhost:8080/api/TuCine/v1/films
     //Method: GET
