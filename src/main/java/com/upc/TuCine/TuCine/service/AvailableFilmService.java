@@ -10,6 +10,6 @@ public interface AvailableFilmService {
     AvailableFilmDto createAvailableFilm(AvailableFilmDto availableFilmDto);
     AvailableFilmDto updateAvailableFilm(Integer id, AvailableFilmDto availableFilmDto);
     AvailableFilmDto deleteAvailableFilm(Integer id);
-
+    AvailableFilmDto getAvailableFilmById(Integer id);
     List<BusinessDto> getBusinessesByFilmId(Integer filmId);
 }
